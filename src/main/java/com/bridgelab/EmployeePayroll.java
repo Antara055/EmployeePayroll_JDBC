@@ -16,6 +16,11 @@ public class EmployeePayroll {
                 System.out.println("Connected"+connection);
             }
             Statement readStat = connection.createStatement();
+            String sqlUpdate = "update employee_payroll set salary=500000 where name='terisa'" ;
+            int value1=readStat.executeUpdate(sqlUpdate);
+            if(value1>0){
+                System.out.println("Successfully updated");
+            }
             String sqlRead = "SELECT * FROM employee_payroll";
             ResultSet resultSet = readStat.executeQuery(sqlRead);
             while(resultSet.next()) {
