@@ -26,6 +26,11 @@ public class EmployeePayroll {
                 String name = resultSet1.getString("name");
                 System.out.println(name);
             }
+            String sqlInsert = "INSERT INTO employee_payroll(name,salary,start_date) values ('anuska',6000000,'2021-05-01')";
+            int value=readStat.executeUpdate(sqlInsert);
+            if(value>0){
+                System.out.println("Successfully added");
+            }
             String sqlRead = "SELECT * FROM employee_payroll";
             ResultSet resultSet = readStat.executeQuery(sqlRead);
             while (resultSet.next()) {
