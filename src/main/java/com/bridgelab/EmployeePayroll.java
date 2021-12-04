@@ -1,37 +1,42 @@
 package com.bridgelab;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 
 public class EmployeePayroll {
     public static void main(String[] args) {
-        String dbURl="jdbc:mysql://localhost:3306/payroll_service";
-        String userName="Antara";
-        String password="##Antara55";
+        String dbURl = "jdbc:mysql://localhost:3306/payroll_service";
+        String userName = "Antara";
+        String password = "##Antara55";
         try {
             Connection connection = DriverManager.getConnection(dbURl, userName, password);
             if (connection != null) {
-                System.out.println("Connected"+connection);
+                System.out.println("Connected" + connection);
             }
             Statement readStat = connection.createStatement();
-            String sqlUpdate = "update employee_payroll set salary=500000 where name='terisa'" ;
-            int value1=readStat.executeUpdate(sqlUpdate);
-            if(value1>0){
+            String sqlUpdate = "update employee_payroll set salary=500000 where name='terisa'";
+            int value1 = readStat.executeUpdate(sqlUpdate);
+            if (value1 > 0) {
                 System.out.println("Successfully updated");
+            }
+            String sqlRead1 = "SELECT name from employee_payroll where start_date between '2019-01-01' and '2020-12-31'";
+            ResultSet resultSet1 = readStat.executeQuery(sqlRead1);
+            while (resultSet1.next()) {
+                String name = resultSet1.getString("name");
+                System.out.println(name);
             }
             String sqlRead = "SELECT * FROM employee_payroll";
             ResultSet resultSet = readStat.executeQuery(sqlRead);
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
-                int salary=resultSet.getInt("salary");
-                Date start_date=resultSet.getDate("start_date");
-                System.out.println(id + " | " + name + " | " + salary+" | "+start_date );
+                int salary = resultSet.getInt("salary");
+                Date start_date = resultSet.getDate("start_date");
+                System.out.println(id + " | " + name + " | " + salary + " | " + start_date);
             }
-        }
-        catch (SQLException e){
+            connection.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         listDrivers();
